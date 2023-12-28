@@ -1,16 +1,10 @@
 ---
 import styles from '../styles/components/card.module.scss';
 
-interface Props {
-	title: string;
-	body: string;
-	href: string;
-}
-
-const { href, title, body } = Astro.props;
+const { href = '', title = '', body = '' } = Astro.props;
 ---
 
-<li class={styles.card}>
+<div class={styles.card}>
 	<a href={href}>
 		<h2>
 			{title}
@@ -19,4 +13,4 @@ const { href, title, body } = Astro.props;
 			{body}
 		</p>
 	</a>
-</li>
+</div>
