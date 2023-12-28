@@ -2,28 +2,21 @@
 import Card from '../components/Card.astro';
 
 const { items = [] } = Astro.props;
+const results = items.map(({ properties = {} }) => properties);
 ---
 
 {items.length && (
-  <filter-list>
-    <ul>
-      {items.map(({ properties }) => (
+  <filter-list data-items={JSON.stringify(results)}>
+    <ul role="list">
+      {results.map(({ Name }) => (
         <li>
           <Card
         		href="#"
-        		title={properties.Name.title[0].plain_text}
+        		title={Name.title[0].plain_text}
         		// https://docs.astro.build/en/guides/view-transitions/
         	/>
         </li>
       ))}
-
-      <li>
-        <Card
-          href="https://docs.astro.build/"
-          title="Documentation"
-          body="Learn how Astro works and explore the official API docs."
-        />  
-      </li>
     </ul>
   </filter-list>
 )}
@@ -33,10 +26,15 @@ const { items = [] } = Astro.props;
     constructor() {
       super();
 
-      const element = this;
-      const items = [...element.querySelectorAll('li')] || [];
+      // const element = this;
+      const { items = '[]' } = this.dataset;
+      const results = JSON.parse(items);
 
-      console.log(items);
+      console.log(results);
+
+      // TODO:
+      // prepend filter buttons
+      // https://web.dev/articles/custom-elements-v1
     }
   }
 
