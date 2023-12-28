@@ -1,15 +1,32 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Card from '../components/Card.astro';
+import { getSome } from '../lib/notion/client.js';
 
+const { results: items = [] } = await getSome();
 const title = 'Chillmore Girls';
 ---
 
 <Layout title={title}>
 	<main>
 		<h1>{title}</h1>
+
+		<!-- {console.log(items)} -->
+
+		{items.forEach(({ properties }) => {
+			// <p>{name}</p>
+
+			console.log(properties.Name.title[0].plain_text)
+			
+		})}
+
 		<ul role="list" class="link-card-grid">
-			<Card
+			{items.map(({ properties }) => (<Card
+					href="#"
+					title={properties.Name.title[0].plain_text}
+				/>
+			))}
+			<!-- <Card
 				href="https://docs.astro.build/"
 				title="Documentation"
 				body="Learn how Astro works and explore the official API docs."
@@ -28,7 +45,7 @@ const title = 'Chillmore Girls';
 				href="https://astro.build/chat/"
 				title="Community"
 				body="Come say hi to our amazing Discord community. ❤️"
-			/>
+			/> -->
 		</ul>
 	</main>
 </Layout>
