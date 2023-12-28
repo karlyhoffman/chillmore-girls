@@ -1,0 +1,44 @@
+---
+import Card from '../components/Card.astro';
+
+const { items = [] } = Astro.props;
+---
+
+{items.length && (
+  <filter-list>
+    <ul>
+      {items.map(({ properties }) => (
+        <li>
+          <Card
+        		href="#"
+        		title={properties.Name.title[0].plain_text}
+        		// https://docs.astro.build/en/guides/view-transitions/
+        	/>
+        </li>
+      ))}
+
+      <li>
+        <Card
+          href="https://docs.astro.build/"
+          title="Documentation"
+          body="Learn how Astro works and explore the official API docs."
+        />  
+      </li>
+    </ul>
+  </filter-list>
+)}
+
+<script>
+  class FilterList extends HTMLElement {
+    constructor() {
+      super();
+
+      const element = this;
+      const items = [...element.querySelectorAll('li')] || [];
+
+      console.log(items);
+    }
+  }
+
+  customElements.define('filter-list', FilterList);
+</script>
