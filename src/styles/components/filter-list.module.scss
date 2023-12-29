@@ -1,0 +1,33 @@
+@use '../variables/colors' as colors;
+
+.filter-list {
+  &__filters {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    width: fit-content;
+    background-color: colors.$dark-green;
+    margin: 40px auto;
+    padding: 15px;
+    border-radius: 50px;
+
+    button {
+      background-color: colors.$green;
+      font-size: 1.5rem;
+      border-radius: 50px;
+      padding: 8px 15px;
+
+      &[aria-selected] {
+        background-color: colors.$light-green;
+        cursor: default;
+      }
+    }
+  }
+
+  &__results {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+}

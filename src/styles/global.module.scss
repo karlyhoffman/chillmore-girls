@@ -1,5 +1,7 @@
 @use './variables/colors' as colors;
 
+@import './utilities/reset';
+
 @font-face {
   font-family: 'Bricolage Grotesque';
   src: url('/fonts/BricolageGrotesque-var.ttf') format('truetype-variations');
@@ -22,9 +24,5 @@
 
   a {
     color: colors.$dark-green;
-  }
-
-  ul {
-    list-style: none;
   }
 }
