@@ -25,6 +25,11 @@ const results = items.map(({ properties = {} }) => properties);
   class FilterList extends HTMLElement {
     constructor() {
       super();
+      // "In the class constructor, you can set up initial state 
+      // and default values, register event listeners and perhaps 
+      // create a shadow root. 
+      // At this point, YOU SHOULD NOT inspect the element's attributes or children, 
+      // or add new attributes or children." --MDN Web Docs
 
       // const element = this;
       const { items = '[]' } = this.dataset;
