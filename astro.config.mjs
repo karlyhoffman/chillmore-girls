@@ -1,9 +1,14 @@
 import { defineConfig } from 'astro/config';
+import vercel from '@astrojs/vercel/static';
 
-import vercel from '@astrojs/vercel/serverless';
+const isDev = import.meta.env.DEV;
 
 // https://astro.build/config
 export default defineConfig({
-  output: 'server',
-  adapter: vercel(),
+  output: 'static',
+  adapter: vercel({
+    webAnalytics: {
+      enabled: !isDev,
+    },
+  }),
 });

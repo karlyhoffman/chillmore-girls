@@ -1,0 +1,56 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getSome } from '../lib/notion/client.js';
+
+export async function getStaticPaths() {
+  const { results = [] } = await getSome({});
+
+  const pages = results.map(({ properties = {} }) => {
+    const slug = properties?.slug?.formula?.string || null;
+    return { slug, props: properties };
+  });
+
+  return pages.map(({ slug, props }) => {
+    return {
+      params: { slug, },
+      props
+    };
+  });
+}
+
+const {
+  Favorite: favorite, 
+  Dosage: dosage, 
+  Overall: overall, 
+  CBD: cbd, 
+  Type: type, 
+  slug, 
+  Strain: strain, 
+  Duration: duration, 
+  High: high, 
+  Name: name
+} = Astro.props;
+
+const title = name.title[0].plain_text;
+const rating =  overall?.number ? `${overall.number}/5` : null;
+const isFavorite = favorite.checkbox;
+const dosageAmount = dosage?.number ? `${dosage.number}mg` : 'N/A';
+const cbdAmount = cbd?.number ? `${cbd.number}mg` : 'N/A';
+const typeOf = type?.select.name || 'N/A';
+const strains = strain.multi_select || [];
+const durationOf = duration?.select.name || 'N/A';
+const highTypes = high.multi_select || [];
+---
+
+<Layout>
+  <h1>{title}</h1>
+  <p>Slug: {slug.formula.string}</p>
+  <p>Rating: {rating}</p>
+  <p>Favorite: {isFavorite ? 'Yes' : 'No'}</p>
+  <p>Dosage: {dosageAmount}</p>
+  <p>CBD: {cbdAmount}</p>
+  <p>Type: {typeOf}</p>
+  <p>Strains: {strains.map(({ name }) => name).join(', ')}</p>
+  <p>Duration: {durationOf}</p>
+  <p>High: {highTypes.map(({ name }) => name).join(', ')}</p>
+</Layout>

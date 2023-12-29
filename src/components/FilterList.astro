@@ -18,10 +18,10 @@ const results = items.map(({ properties = {} }) => properties);
       </div>
 
       <ul class={styles['filter-list__results']} role="list">
-        {results.map(({ Name }) => (
+        {results.map(({ Name, slug }) => (
           <li>
             <Card
-              href="#"
+              href={slug.formula.string}
               title={Name.title[0].plain_text}
             />
           </li>
