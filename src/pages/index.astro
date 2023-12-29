@@ -2,17 +2,25 @@
 import Layout from '../layouts/Layout.astro';
 import Footer from '../layouts/Footer.astro';
 import FilterList from '../components/FilterList.astro';
+import styles from '../styles/utilities/a11y.module.scss';
 
 import { getSome } from '../lib/notion/client.js';
 
-const { results = [] } = await getSome();
+
+const { results = [] } = await getSome({ options: {
+	sorts: [
+		{
+			property: "Type",
+			direction: "ascending"
+		}
+	]
+} });
 const title = 'Chillmore Girls';
 ---
 
 <Layout title={title}>
 	<main>
-		<h1>{title}</h1>
-
+		<h1 class={styles["sr-only"]}>{title}</h1>
 		<FilterList items={results} />
 	</main>
 	<Footer/>
