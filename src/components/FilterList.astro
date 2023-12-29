@@ -1,6 +1,6 @@
 ---
 import Card from '../components/Card.astro';
-import styles from '../styles/components/filter-list.module.scss';
+import '../styles/components/filter-list.scss';
 
 const { items = [], filterValues = [], filterProperty = '' } = Astro.props;
 ---
@@ -10,16 +10,16 @@ const { items = [], filterValues = [], filterProperty = '' } = Astro.props;
     data-filters={JSON.stringify(filterValues)}
     data-filter-property={filterProperty}
   >
-    <div class={styles['filter-list']}>
+    <div class="filter-list">
 
-      <div class={styles['filter-list__filters']}>
+      <div class="filter-list__filters">
         <button aria-selected="true" aria-disabled="true" disabled>All</button>
         <button>Pre-rolled</button>
         <button>Flower</button>
         <button>Edibles</button>
       </div>
 
-      <ul class={styles['filter-list__results']} role="list">
+      <ul class="filter-list__results" role="list">
         {items.map(({ title = '', slug, type = '', rating }) => {
           if (!title?.length || !slug?.length) return null;
           

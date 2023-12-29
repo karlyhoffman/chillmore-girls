@@ -8,21 +8,21 @@
   font-weight: 1 999;
 }
 
-.app {
+html {
   min-height: 100vh;
   border: 8px solid colors.$dark-green;
   background-color: colors.$light-green;
   color: colors.$dark-green;
   font-family: 'Bricolage Grotesque';
   font-variation-settings: 'opsz' 90, 'wdth' 99.375, 'wght' 203;
+}
 
-  h1 {
-    font-size: 15vw;
-    text-align: center;
-    font-variation-settings: 'opsz' 96, 'wdth' 75, 'wght' 357;
-  }
+h1 {
+  font-size: 15vw;
+  text-align: center;
+  font-variation-settings: 'opsz' 96, 'wdth' 75, 'wght' 357;
+}
 
-  a {
-    color: colors.$dark-green;
-  }
+a {
+  color: colors.$dark-green;
 }

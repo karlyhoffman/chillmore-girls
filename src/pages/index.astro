@@ -22,12 +22,10 @@ const results = pageData.map(({ properties }) => ({
 }));
 
 const types = results.reduce((acc, result) => {
-	const { type } = result;
-  if (type?.select?.name && !acc.includes(type.select.name)) acc.push(type.select.name);
+  if (!acc.includes(result.type)) acc.push(result.type);
 
-    return acc;
+  return acc;
 }, []);
-
 ---
 
 <Layout title={title}>
