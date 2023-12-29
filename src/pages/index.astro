@@ -5,17 +5,37 @@ import FilterList from '../components/FilterList.astro';
 import { getSome } from '../lib/notion/client.js';
 
 const title = 'Chillmore Girls';
-const { results = [] } = await getSome({ options: {
+const { results: pageData = [] } = await getSome({ options: {
 	sorts: [
 		{
 			property: "Type",
 			direction: "ascending"
 		}
 	]
-} });
+} }) || {};
+
+const results = pageData.map(({ properties }) => ({
+	title: properties.Name.title[0].plain_text,
+	slug: properties.slug.formula.string,
+	rating: properties.Overall?.number || null,
+	type: properties.Type.select.name,
+}));
+
+const types = results.reduce((acc, result) => {
+	const { type } = result;
+  if (type?.select?.name && !acc.includes(type.select.name)) acc.push(type.select.name);
+
+    return acc;
+}, []);
+
 ---
 
 <Layout title={title}>
 	<h1>{title}</h1>
-	<FilterList items={results} />
+
+	<FilterList
+		items={results}
+		filterValues={types}
+		filterProperty="type"
+	/>
 </Layout>

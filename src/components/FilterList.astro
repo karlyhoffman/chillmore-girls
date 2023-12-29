@@ -2,12 +2,14 @@
 import Card from '../components/Card.astro';
 import styles from '../styles/components/filter-list.module.scss';
 
-const { items = [] } = Astro.props;
-const results = items.map(({ properties = {} }) => properties);
+const { items = [], filterValues = [], filterProperty = '' } = Astro.props;
 ---
 
 {items.length && (
-  <filter-list data-items={JSON.stringify(results)}>
+  <filter-list
+    data-filters={JSON.stringify(filterValues)}
+    data-filter-property={filterProperty}
+  >
     <div class={styles['filter-list']}>
 
       <div class={styles['filter-list__filters']}>
@@ -18,14 +20,19 @@ const results = items.map(({ properties = {} }) => properties);
       </div>
 
       <ul class={styles['filter-list__results']} role="list">
-        {results.map(({ Name, slug }) => (
-          <li>
-            <Card
-              href={slug.formula.string}
-              title={Name.title[0].plain_text}
-            />
-          </li>
-        ))}
+        {items.map(({ title = '', slug, type = '', rating }) => {
+          if (!title?.length || !slug?.length) return null;
+          
+          return (
+            <li data-type={type}>
+              <Card
+                href={slug}
+                title={title}
+                rating={rating}
+              />
+            </li>
+          )
+        })}
       </ul>
     </div>
   </filter-list>
@@ -33,7 +40,7 @@ const results = items.map(({ properties = {} }) => properties);
 
 <script>
   class FilterList extends HTMLElement {
-    results: any[];
+    filters: any[];
 
     constructor() {
       super();
@@ -44,8 +51,8 @@ const results = items.map(({ properties = {} }) => properties);
       // or add new attributes or children." --MDN Web Docs
 
       // const element = this;
-      const { items = '[]' } = this.dataset;
-      this.results = JSON.parse(items);
+      const { filters = '[]' } = this.dataset;
+      this.filters = JSON.parse(filters);
     }
 
     connectedCallback() {
@@ -60,14 +67,19 @@ const results = items.map(({ properties = {} }) => properties);
     renderFilterButtons() {
       // const { results } = this;
 
-      const filters = this.results.reduce((acc, result) => {
-        const { Type: type } = result;
-        if (type?.select?.name && !acc.includes(type.select.name)) acc.push(type.select.name);
+      console.log(this.filters);
 
-        return acc;
-      }, []);
+      // const filters = this.results.reduce((acc, result) => {
 
-      console.log({filters});
+      //   console.log(result);
+
+      //   const { Type: type } = result;
+      //   if (type?.select?.name && !acc.includes(type.select.name)) acc.push(type.select.name);
+
+      //   return acc;
+      // }, []);
+
+      // console.log({filters});
 
       // const filterButtons = filters.map((filter) => {
       //   const button = document.createElement('button');
