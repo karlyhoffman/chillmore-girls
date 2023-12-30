@@ -5,6 +5,7 @@
   h1 {
     flex: 1 1 100%;
     order: -1;
+    margin: 50px auto;
   }
 
   .column {
@@ -29,7 +30,11 @@
 
     &__contents {
       position: sticky;
-      top: 0;
+      top: 40%;
+
+      @media screen and (min-width: 768px) {
+        text-align: right;
+      }
     }
   }
 }

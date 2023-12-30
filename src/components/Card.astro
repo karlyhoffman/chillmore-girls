@@ -4,10 +4,11 @@ import '../styles/components/card.scss';
 const { href = '', title = '', rating = '' } = Astro.props;
 ---
 
-<div class="card">
-	<a href={href}>
-		<h2>
-			{title}
-		</h2>
-	</a>
-</div>
+<a class="card" href={href}>
+	<h2>
+		{title}
+	</h2>
+	<p class="rating">
+		<strong>Rating:</strong> {rating}
+	</p>
+</a>

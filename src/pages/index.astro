@@ -8,8 +8,8 @@ const title = 'Chillmore Girls';
 const { results: pageData = [] } = await getSome({ options: {
 	sorts: [
 		{
-			property: "Type",
-			direction: "ascending"
+			property: "Overall",
+			direction: "descending"
 		}
 	]
 } }) || {};
@@ -23,7 +23,6 @@ const results = pageData.map(({ properties }) => ({
 
 const types = results.reduce((acc, { type }) => {
   if (type && !acc.includes(type)) acc.push(type);
-
   return acc;
 }, []);
 ---

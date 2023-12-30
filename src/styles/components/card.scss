@@ -3,22 +3,30 @@
 $transition: 200ms linear;
 
 .card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   border: 8px solid colors.$green;
   margin-bottom: 10px;
   padding: 25px 55px 30px;
   border-radius: 70px;
-  font-size: min(8vw, 5rem);
-  transition: background-color $transition;
+  transition: $transition;
+  transition-property: background-color, color;
 
-  a {
-    transition: color $transition;
+  h2 {
+    font-size: min(8vw, 5rem);
+  }
+
+  p {
+    font-size: min(4vw, 2.5rem);
+
+    strong {
+      font-size: min(4.5vw, 3rem);
+    }
   }
 
   &:hover {
     background-color: colors.$dark-green;
-
-    a {
-      color: colors.$light-green;
-    }
+    color: colors.$light-green;
   }
 }
