@@ -4,6 +4,62 @@ import '../styles/layout/header.scss';
 const title = 'Chillmore Girls';
 ---
 
-<header>
-  <a class="h1" href="/">{title}</a>
-</header>
+<header-scroll>
+  <header>
+    <a class="h1" href="/">{title}</a>
+  </header>
+</header-scroll>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const SCROLL_DISTANCE = 100; // px
+
+  class HeaderScroll extends HTMLElement {
+    header: HTMLElement;
+    headline: HTMLElement;
+    timeline: gsap.core.Timeline;
+
+    constructor() {
+      super();
+
+      const element = this;
+      this.header = element.querySelector('header');
+      this.headline = element.querySelector('.h1');
+      this.timeline = gsap.timeline({
+        paused: true, 
+        scrollTrigger: { 
+          trigger: element,
+          start: 'top top',
+          end: () => `+=${SCROLL_DISTANCE}px`,
+          scrub: 0.3,
+          // markers: true
+        }
+      });
+    }
+
+    connectedCallback() {
+      this.enable();
+    }
+
+    enable() {
+      const decreasePadding = gsap.to(this.header, {
+        paddingTop: 0,
+        paddingBottom: 0,
+        transformOrigin: 'center center',
+      });
+
+      const decreaseFontSize = gsap.to(this.headline, {
+        fontSize: '5.5rem',
+        transformOrigin: 'center center',
+      });
+
+      this.timeline.add([decreasePadding, decreaseFontSize], 0);
+    }
+  }
+
+  customElements.define('header-scroll', HeaderScroll);
+</script>
