@@ -1,0 +1,11 @@
+---
+import '../styles/components/ratings.scss';
+
+const { rating } = Astro.props;
+---
+
+<div>
+  <p id="desc" class="rating">
+		<strong>Rating:</strong> {rating}/5
+	</p>
+</div>

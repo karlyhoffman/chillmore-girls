@@ -16,6 +16,14 @@
       font-size: 6rem;
     }
 
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-bottom: 15px;
+      padding-left: 40px;
+    }
+
     @media screen and (min-width: 768px) {
       flex: 1 0 50%;
 

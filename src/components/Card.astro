@@ -1,14 +1,13 @@
 ---
 import '../styles/components/card.scss';
+import Ratings from './Ratings.astro';
 
-const { href = '', title = '', rating = '' } = Astro.props;
+const { href = '', title = '', rating = null } = Astro.props;
 ---
 
 <a class="card" href={href}>
 	<h2>
 		{title}
 	</h2>
-	<p class="rating">
-		<strong>Rating:</strong> {rating}
-	</p>
+	<Ratings rating={rating} />
 </a>

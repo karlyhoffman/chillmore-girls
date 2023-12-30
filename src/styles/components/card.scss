@@ -17,14 +17,6 @@ $transition: 200ms linear;
     font-size: min(8vw, 5rem);
   }
 
-  p {
-    font-size: min(4vw, 2.5rem);
-
-    strong {
-      font-size: min(4.5vw, 3rem);
-    }
-  }
-
   &:hover {
     background-color: colors.$dark-green;
     color: colors.$light-green;
