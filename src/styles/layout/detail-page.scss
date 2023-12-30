@@ -24,7 +24,7 @@
       padding-left: 40px;
     }
 
-    @media screen and (min-width: 768px) {
+    @media (min-width: 768px) {
       flex: 1 0 50%;
 
       &--rating {
@@ -40,7 +40,7 @@
       position: sticky;
       top: 40%;
 
-      @media screen and (min-width: 768px) {
+      @media (min-width: 768px) {
         text-align: right;
       }
     }

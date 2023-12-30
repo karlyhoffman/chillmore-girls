@@ -4,21 +4,45 @@ $transition: 200ms linear;
 
 .card {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  border: 8px solid colors.$green;
-  margin-bottom: 10px;
-  padding: 25px 55px 30px;
-  border-radius: 70px;
+  text-align: center;
+  gap: 30px;
+  border: 6px solid colors.$green;
+  border-radius: 200px;
   transition: $transition;
-  transition-property: background-color, color;
+  transition-property: background-color, color, font-variation-settings, border-width;
+  transform-origin: center;
+  margin-bottom: 10px;
+  padding: 25px 155px 30px;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    text-align: left;
+    border-radius: 75px;
+    border-width: 8px;
+    padding-left: 55px;
+    padding-right: 55px;
+  }
 
   h2 {
+    flex: 1 0 60%;
     font-size: min(8vw, 5rem);
   }
 
   &:hover {
     background-color: colors.$dark-green;
     color: colors.$light-green;
+    font-variation-settings: 'opsz' 90, 'wdth' 99.375, 'wght' 450;
+    border-width: 6px;
+
+    .ratings__label {
+      opacity: 1;
+    }
+
+    .ratings__star--nope::before {
+      background-color: colors.$light-green;
+    }
   }
 }

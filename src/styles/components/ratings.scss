@@ -1,7 +1,56 @@
-.rating {
-  font-size: min(4vw, 2.5rem);
+@use '../variables/colors' as colors;
 
-  strong {
-    font-size: min(4.5vw, 3rem);
+.ratings {
+  position: relative;
+  display: flex;
+  gap: 1.5%;
+
+  &__label {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    right: 0;
+    text-align: center;
+    transition: opacity 200ms linear;
+    opacity: 0;
+
+    &--show {
+      opacity: 1;
+    }
+  }
+
+  &__star {
+    position: relative;
+    flex: 1;
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+
+    &--half {
+      opacity: 0.5;
+    }
+
+    &--nope {
+      position: relative;
+
+      img {
+        display: none;
+      }
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, 10%);
+        width: 8px;
+        height: 8px;
+        border-radius: 100%;
+        background-color: colors.$dark-green;
+        opacity: 0.5;
+      }
+    }
   }
 }

@@ -36,7 +36,7 @@ const {
 const pageProps = {
   title: name.title[0].plain_text,
   slug: slug?.formula?.string || '',
-  rating: overall?.number ? `${overall.number}/5` : null,
+  rating: overall?.number || null,
   isFavorite: favorite.checkbox,
   dosageAmount: dosage?.number ? `${dosage.number}mg` : 'N/A',
   cbdAmount: cbd?.number ? `${cbd.number}mg` : 'N/A',

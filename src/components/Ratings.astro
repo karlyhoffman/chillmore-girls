@@ -1,11 +1,32 @@
 ---
 import '../styles/components/ratings.scss';
+import { Image } from 'astro:assets';
+import icon from "./images/icon.avif";
 
-const { rating } = Astro.props;
+const { rating, showLabel = false } = Astro.props;
 ---
 
 <div>
-  <p id="desc" class="rating">
-		<strong>Rating:</strong> {rating}/5
+  <p id="desc" class="sr-only">
+		<strong>Rating:</strong> {rating}/out of 5 rating
 	</p>
+  <div class="ratings" aria-describedby="desc">
+    {[...Array(5).keys()].map((i) => {
+      const isFull = i < Math.floor(rating);
+      const isHalf = rating % 1 != 0 && i == Math.floor(rating);
+      const type = isFull ? 'full' : isHalf ? 'half' : 'nope';
+    
+      return (
+        <span class={`ratings__star ratings__star--${type}`} aria-hidden="true">
+          <Image src={icon} alt="" /> 
+        </span>
+      );
+    })}
+
+    <p
+      class={`ratings__label${ showLabel ? ' ratings__label--show' : ''}`}
+    >
+      {rating}/5 rating
+    </p>
+  </div>
 </div>

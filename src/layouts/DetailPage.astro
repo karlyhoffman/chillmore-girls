@@ -1,5 +1,6 @@
 ---
 import '../styles/layout/detail-page.scss';
+import Ratings from '../components/Ratings.astro';
 
 const {
   title = '',
@@ -23,11 +24,7 @@ const {
 
   <div class="column column--rating">
     <div class="column__contents">
-      {!!rating && (
-        <p class="rating">
-          <strong>Rating:</strong> {rating}
-        </p>
-      )}
+      {!!rating && <Ratings rating={rating} showLabel />}
     </div>
   </div>
 
