@@ -6,16 +6,22 @@ const { items = [], filterValues = [], filterProperty = '' } = Astro.props;
 ---
 
 {items.length && (
-  <filter-list
-    data-filters={JSON.stringify(filterValues)}
-    data-filter-property={filterProperty}
-  >
+  <filter-list data-filter-property={filterProperty}>
     <div class="filter-list">
-      <div class="filter-list__filters">
-        <button aria-selected="true" aria-disabled="true" disabled>All</button>
-        <button>Pre-rolled</button>
-        <button>Flower</button>
-        <button>Edibles</button>
+
+      <div class="filter-list__menu">
+        <button
+          value="reset"
+          aria-selected="true"
+          aria-disabled="true"
+          disabled
+        >
+          All
+        </button>
+  
+        {filterValues.map((type) => (
+          <button value={type}>{type}</button>
+        ))}
       </div>
 
       <ul class="filter-list__results" role="list">
@@ -23,7 +29,7 @@ const { items = [], filterValues = [], filterProperty = '' } = Astro.props;
           if (!title?.length || !slug?.length) return null;
           
           return (
-            <li data-type={type}>
+            <li class="filter-list__results__item" data-filter-type={type}>
               <Card
                 href={slug}
                 title={title}
@@ -39,7 +45,9 @@ const { items = [], filterValues = [], filterProperty = '' } = Astro.props;
 
 <script>
   class FilterList extends HTMLElement {
-    filters: any[];
+    currentFilter: string;
+    filterButtons: any[];
+    items: any[];
 
     constructor() {
       super();
@@ -49,9 +57,10 @@ const { items = [], filterValues = [], filterProperty = '' } = Astro.props;
       // At this point, YOU SHOULD NOT inspect the element's attributes or children, 
       // or add new attributes or children." --MDN Web Docs
 
-      // const element = this;
-      const { filters = '[]' } = this.dataset;
-      this.filters = JSON.parse(filters);
+      const element = this;
+      this.currentFilter = 'reset';
+      this.filterButtons = [...element.querySelectorAll('.filter-list__menu button')] || [];
+      this.items = [...element.querySelectorAll('li')] || [];
     }
 
     connectedCallback() {
@@ -60,38 +69,39 @@ const { items = [], filterValues = [], filterProperty = '' } = Astro.props;
       // or rendering. Generally, you should try to delay work until 
       // this time." --MDN Web Docs
 
-      this.renderFilterButtons();
+      this.enableFilterButtons();
     }
 
-    renderFilterButtons() {
-      // const { results } = this;
+    enableFilterButtons() {
+      this.filterButtons.forEach((button) => {
+        button.addEventListener('click', () => this.handleFilterChange(button.value));
+      });
+    }
 
-      console.log(this.filters);
+    handleFilterChange = (filterType) => {
+      this.currentFilter = filterType;
+  
+      this.filterButtons.forEach((button) => {
+        const buttonValue = button.value;
+        if (buttonValue === filterType) {
+          button.setAttribute('aria-selected', 'true');
+          button.setAttribute('aria-disabled', 'true');
+          button.disabled = true;
+        } else {
+          button.removeAttribute('aria-selected');
+          button.removeAttribute('aria-disabled');
+          button.removeAttribute("disabled");
+        }
+      });
 
-      // const filters = this.results.reduce((acc, result) => {
-
-      //   console.log(result);
-
-      //   const { Type: type } = result;
-      //   if (type?.select?.name && !acc.includes(type.select.name)) acc.push(type.select.name);
-
-      //   return acc;
-      // }, []);
-
-      // console.log({filters});
-
-      // const filterButtons = filters.map((filter) => {
-      //   const button = document.createElement('button');
-      //   button.textContent = filter;
-      //   button.addEventListener('click', () => {
-      //     this.filterResults(filter);
-      //   });
-      //   return button;
-      // });
-
-      // const container = document.createElement('div');
-      // container.append(...filterButtons);
-      // this.append(container);
+      this.items.forEach((item) => {
+        const itemFilterType = item.getAttribute('data-filter-type');
+        if (filterType === 'reset' || itemFilterType === filterType) {
+          item.classList.remove('hidden');
+        } else {
+          item.classList.add('hidden');
+        }
+      });
     }
   }
 

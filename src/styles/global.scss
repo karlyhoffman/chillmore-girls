@@ -14,11 +14,15 @@ html {
   min-height: 100vh;
   border: 8px solid colors.$dark-green;
   border-top: none;
-  background-color: colors.$light-green;
+  background-color: colors.$dark-green;
   color: colors.$dark-green;
   font-size: 100%;
   font-family: 'Bricolage Grotesque';
   font-variation-settings: fonts.$var-reg;
+}
+
+body {
+  background-color: colors.$light-green;
 }
 
 .h1,
