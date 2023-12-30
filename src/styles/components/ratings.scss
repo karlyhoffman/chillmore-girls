@@ -3,6 +3,7 @@
 .ratings {
   position: relative;
   display: flex;
+  flex-wrap: wrap;
   gap: 1.5%;
 
   &__label {
@@ -15,6 +16,11 @@
     opacity: 0;
 
     &--show {
+      position: relative;
+      width: 100%;
+      top: auto;
+      left: auto;
+      right: auto;
       opacity: 1;
     }
   }

@@ -16,7 +16,7 @@ const title = 'Chillmore Girls';
 
   gsap.registerPlugin(ScrollTrigger);
 
-  const SCROLL_DISTANCE = 100; // px
+  const SCROLL_DISTANCE = 150; // px
 
   class HeaderScroll extends HTMLElement {
     header: HTMLElement;
@@ -35,7 +35,7 @@ const title = 'Chillmore Girls';
           trigger: element,
           start: 'top top',
           end: () => `+=${SCROLL_DISTANCE}px`,
-          scrub: 0.3,
+          scrub: 0.5,
           // markers: true
         }
       });
@@ -49,12 +49,12 @@ const title = 'Chillmore Girls';
       const decreasePadding = gsap.to(this.header, {
         paddingTop: 0,
         paddingBottom: 0,
-        transformOrigin: 'center center',
+        transformOrigin: 'center top',
       });
 
       const decreaseFontSize = gsap.to(this.headline, {
         fontSize: '5.5rem',
-        transformOrigin: 'center center',
+        transformOrigin: 'center top',
       });
 
       this.timeline.add([decreasePadding, decreaseFontSize], 0);
