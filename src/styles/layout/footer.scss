@@ -1,4 +1,14 @@
 footer {
+  font-size: 1.5rem;
   text-align: center;
-  padding: 30px 5px 5px 5px;
+  padding: 60px 20px 20px 20px;
+
+  a {
+    text-decoration: underline;
+  }
+
+  p.sm {
+    font-size: 1rem;
+    margin-top: 5px;
+  }
 }

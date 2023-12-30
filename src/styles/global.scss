@@ -1,5 +1,7 @@
 @use './variables/colors' as colors;
+@use './variables/typography' as fonts;
 
+@import './utilities/a11y';
 @import './utilities/reset';
 
 @font-face {
@@ -11,18 +13,33 @@
 html {
   min-height: 100vh;
   border: 8px solid colors.$dark-green;
+  border-top: none;
   background-color: colors.$light-green;
   color: colors.$dark-green;
+  font-size: 100%;
   font-family: 'Bricolage Grotesque';
-  font-variation-settings: 'opsz' 90, 'wdth' 99.375, 'wght' 203;
+  font-variation-settings: fonts.$var-reg;
 }
 
-h1 {
-  font-size: 15vw;
+.h1,
+.h2 {
   text-align: center;
-  font-variation-settings: 'opsz' 96, 'wdth' 75, 'wght' 357;
+  font-variation-settings: fonts.$var-bold;
+}
+
+.h1 {
+  font-size: 15vw;
+}
+
+.h2 {
+  font-size: 10vw;
+}
+
+strong {
+  font-variation-settings: fonts.$var-bold;
 }
 
 a {
   color: colors.$dark-green;
+  text-decoration: none;
 }

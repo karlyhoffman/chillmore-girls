@@ -1,0 +1,35 @@
+.detail-page {
+  display: flex;
+  flex-wrap: wrap;
+
+  h1 {
+    flex: 1 1 100%;
+    order: -1;
+  }
+
+  .column {
+    flex: 1 1 100%;
+    font-size: 4rem;
+
+    strong {
+      font-size: 6rem;
+    }
+
+    @media screen and (min-width: 768px) {
+      flex: 1 0 50%;
+
+      &--rating {
+        order: 3;
+      }
+
+      &--specs {
+        order: 2;
+      }
+    }
+
+    &__contents {
+      position: sticky;
+      top: 0;
+    }
+  }
+}

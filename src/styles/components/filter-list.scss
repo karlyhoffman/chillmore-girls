@@ -1,4 +1,5 @@
 @use '../variables/colors' as colors;
+@use '../variables/typography' as fonts;
 
 .filter-list {
   &__filters {
@@ -6,17 +7,19 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: min(2vw, 30px);
+    gap: min(2vw, 15px);
     width: fit-content;
     background-color: colors.$dark-green;
     white-space: nowrap;
     border-radius: 50px;
     margin: 40px auto;
-    padding: min(1.2vw, 15px);
+    padding: min(1.2vw, 8px);
 
     button {
       background-color: colors.$green;
-      font-size: min(4.2vw, 1.5rem);
+      font-size: min(4.2vw, 1.75rem);
+      text-transform: uppercase;
+      font-variation-settings: fonts.$var-bold;
       border-radius: 50px;
       padding: 8px 15px;
 
@@ -30,6 +33,6 @@
   &__results {
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 20px;
   }
 }

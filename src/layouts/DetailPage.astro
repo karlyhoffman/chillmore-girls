@@ -1,0 +1,69 @@
+---
+import '../styles/layout/detail-page.scss';
+
+const {
+  title = '',
+  slug = '',
+  rating,
+  isFavorite = false,
+  dosageAmount = 'N/A',
+  cbdAmount = 'N/A',
+  type = 'N/A',
+  strains = [],
+  duration = 'N/A',
+  highTypes = [],
+} = Astro.props;
+---
+
+<div class="container detail-page">
+  <h1 class="h2">
+    {title}
+    {!!isFavorite && <span class="favorite">★</span>}
+  </h1>
+
+  <div class="column column--rating">
+    <div class="column__contents">
+      {!!rating && (
+        <p class="rating">
+          <strong>Rating:</strong> {rating}
+        </p>
+      )}
+    </div>
+  </div>
+
+  <div class="column column--specs">
+    <p class="type">
+      <strong>Type:</strong> {type} 
+    </p>
+  
+    <p class="dosage">
+      <strong>Dosage:</strong> {dosageAmount}
+    </p>
+
+    <p class="cbd">
+      <strong>CBD:</strong> {cbdAmount}
+    </p>
+
+    <p class="duration">
+      <strong>Duration:</strong> {duration}
+    </p>
+
+    {!!strains?.length && (
+      <p><strong>Strains:</strong></p>
+      <ul class="strains">
+        {strains.map(strain => (
+          <li>{strain}</li>
+        ))}
+      </ul>
+    )}
+
+    {!!highTypes?.length && (
+      <p><strong>High Types:</strong></p>
+      <ul class="high-types">
+        {highTypes.map(highType => (
+          <li>{highType}</li>
+        ))}
+      </ul>
+    )}
+  </div>
+</div>

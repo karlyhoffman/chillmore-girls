@@ -1,0 +1,12 @@
+@use '../variables/colors' as colors;
+
+header {
+  position: sticky;
+  top: 0;
+  text-align: center;
+  background-color: colors.$light-green;
+  border-top: 8px solid colors.$dark-green;
+  border-bottom: 8px solid colors.$dark-green;
+  padding: 2vh 30px;
+  z-index: 2;
+}

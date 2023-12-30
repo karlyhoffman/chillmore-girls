@@ -1,5 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import DetailPage from '../layouts/DetailPage.astro';
+
 import { getSome } from '../lib/notion/client.js';
 
 export async function getStaticPaths() {
@@ -31,26 +33,20 @@ const {
   Name: name
 } = Astro.props;
 
-const title = name.title[0].plain_text;
-const rating =  overall?.number ? `${overall.number}/5` : null;
-const isFavorite = favorite.checkbox;
-const dosageAmount = dosage?.number ? `${dosage.number}mg` : 'N/A';
-const cbdAmount = cbd?.number ? `${cbd.number}mg` : 'N/A';
-const typeOf = type?.select?.name || 'N/A';
-const strains = strain.multi_select || [];
-const durationOf = duration?.select.name || 'N/A';
-const highTypes = high.multi_select || [];
+const pageProps = {
+  title: name.title[0].plain_text,
+  slug: slug?.formula?.string || '',
+  rating: overall?.number ? `${overall.number}/5` : null,
+  isFavorite: favorite.checkbox,
+  dosageAmount: dosage?.number ? `${dosage.number}mg` : 'N/A',
+  cbdAmount: cbd?.number ? `${cbd.number}mg` : 'N/A',
+  type: type?.select?.name || 'N/A',
+  strains: strain.multi_select?.map(({ name }) => name) || [],
+  duration: duration?.select.name || 'N/A',
+  highTypes: high.multi_select?.map(({ name }) => name) || [],
+};
 ---
 
-<Layout title={title}>
-  <h1>{title}</h1>
-  <p>Slug: {slug.formula.string}</p>
-  <p>Rating: {rating}</p>
-  <p>Favorite: {isFavorite ? 'Yes' : 'No'}</p>
-  <p>Dosage: {dosageAmount}</p>
-  <p>CBD: {cbdAmount}</p>
-  <p>Type: {typeOf}</p>
-  <p>Strains: {strains.map(({ name }) => name).join(', ')}</p>
-  <p>Duration: {durationOf}</p>
-  <p>High: {highTypes.map(({ name }) => name).join(', ')}</p>
+<Layout title={pageProps.title}>
+  <DetailPage {...pageProps} />
 </Layout>
