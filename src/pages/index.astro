@@ -18,11 +18,11 @@ const results = pageData.map(({ properties }) => ({
 	title: properties.Name.title[0].plain_text,
 	slug: properties.slug.formula.string,
 	rating: properties.Overall?.number || null,
-	type: properties.Type.select.name,
+	type: properties.Type?.select?.name || null,
 }));
 
-const types = results.reduce((acc, result) => {
-  if (!acc.includes(result.type)) acc.push(result.type);
+const types = results.reduce((acc, { type }) => {
+  if (type && !acc.includes(type)) acc.push(type);
 
   return acc;
 }, []);
