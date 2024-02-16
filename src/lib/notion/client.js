@@ -1,12 +1,12 @@
 import { Client } from '@notionhq/client';
 
-const auth = import.meta.env.NOTION_TOKEN;
+const { NOTION_TOKEN, NOTION_DATABASE_ID } = import.meta.env;
 
-export const notion = new Client({ auth });
+export const notion = new Client({ auth: NOTION_TOKEN });
 
 export async function getSome({ options = {} }) {
   const response = await notion.databases.query({
-    database_id: import.meta.env.NOTION_DATABASE_ID,
+    database_id: NOTION_DATABASE_ID,
     ...options,
   });
 
